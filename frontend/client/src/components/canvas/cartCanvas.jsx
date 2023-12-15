@@ -1,5 +1,6 @@
 import React from 'react';
 import { useCart } from '../../CartContext';
+import PayButton from '../stripe/Paybutton';
 
 const CartCanvas = () => {
   const { cart, removeFromCart, totalPrice } = useCart();
@@ -68,6 +69,7 @@ const CartCanvas = () => {
                 <a href="/checkout" className="btn btn-dark btn-sm">
                   <i className="bi bi-credit-card-2-back-fill"></i> Checkout
                 </a>
+                  <PayButton cartItems={cart}/>
               </li>
             </ul>
           )}

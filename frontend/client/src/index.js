@@ -14,8 +14,5 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const root = createRoot(document.getElementById('root'));
 
-root.render(
-    <App />
- 
-);
+root.render(<App />);
 
