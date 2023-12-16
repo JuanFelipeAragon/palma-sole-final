@@ -59,7 +59,9 @@ const Shop = () => {
     return filteredProducts.map((product) => (
       <div key={product.id} className="d-flex justify-content-center mb-5">
         <div className="card text-center  ">
-          <img src={product.image} className="card-img-top" alt={product.name} />
+        {/* img */}
+          <img src={product.image} className="card-img-top" alt={product.name}
+          style={{ minHeight: '400px', maxHeight: "400px"}}/>
           <div className="card-body">
             <h5 className="card-title">
               <span>{product.name}</span>
@@ -76,8 +78,10 @@ const Shop = () => {
                   value={product.quantity}
                   onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value))}
                   min="1"
+                  
                 />
               </div>
+              
               <div className='d-flex justify-content-center mt-3 mb-3'>
                   <button onClick={() => goToDetail(product.id)} className="btn btn-dark ms-1">
                   <i className="bi bi-info-circle-fill"></i> View

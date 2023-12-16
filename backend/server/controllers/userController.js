@@ -36,10 +36,10 @@ const loginUser = async (req, res) => {
             return res.status(401).json({ message: "Invalid credentials" });
         }
 
-        const payload = { _id: user._id, email: user.email }; // Customize payload as needed
+        const payload = { _id: user._id,first_name:user.first_name, last_name:user.last_name, email: user.email }; // Customize payload as needed
         const token = jwt.sign(payload, process.env.JWT_SECRET || "defaultSecret", { expiresIn: "1h" });
-
-        res.status(200).json({ token });
+        res.cookie("MYTOKEN", token, { httpOnly: true }); 
+        res.json(payload);
     } catch (error) {
         console.error("Login error:", error);
         res.status(500).json({ message: "Login failed" });

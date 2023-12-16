@@ -84,7 +84,11 @@ const Cart = () => {
                   Total:
                   <span className='fw-normal'>${totalPrice + 10}</span>
                 </li>
-                <button className='btn btn-dark m-3'><i class="bi bi-credit-card-2-back-fill"></i> Checkout</button>
+                <div className='d-flex justify-content-center'>
+                  <a href="/checkout" className="btn btn-dark  mt-3">
+                    <i className="bi bi-credit-card-2-back-fill"></i> Checkout
+                  </a>
+                </div>
               </ul>
             </div>
           </div>

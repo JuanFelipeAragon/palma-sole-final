@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// Define MongoDB Schema
 const orderSchema = new mongoose.Schema(
   {
     userId: { type: String, required: true },
@@ -15,6 +16,8 @@ const orderSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Order = mongoose.model("orders", orderSchema);
+// Create a model based on the schema
+const Order = mongoose.model('orders', orderSchema);
 
-exports.Order = Order;
+
+export default Order;

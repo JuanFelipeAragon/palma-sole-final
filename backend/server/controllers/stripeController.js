@@ -6,30 +6,43 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const YOUR_DOMAIN = process.env.CLIENT_URL;
 
 const createSession = async (req, res) => {
+  const { cart, userInfo } = req.body;
+  const { userId, name , email, phoneNumber } = userInfo;
 
-  const line_items = req.body.cart.map((item) => {
+ 
+
+  
+  const line_items = cart.map((item) => {
+    console.log(item.image)
     return {
       price_data: {
         currency: "usd",
         product_data: {
           name: item.name,
-          images: [item.image],
+          // images: [item.image],
           description: item.description,
           metadata: {
             id: item.id,
           },
         },
-        unit_amount: item.price,
+        unit_amount: item.price * 100,
       },
       quantity: item.quantity,
     };
   });
-console.log (line_items)
+  // console.log (line_items[0].price_data.product_data.images);
   const session = await stripe.checkout.sessions.create({
     ui_mode: 'embedded',
-    
-    line_items,
-    
+    line_items: line_items,
+    mode: 'payment',
+    shipping_address_collection: {
+      allowed_countries: ["US", "CA","CO"],
+    },
+    return_url: `${YOUR_DOMAIN}/shop`,
+    automatic_tax: { enabled: true },
+    phone_number_collection: {
+      enabled: true,
+    },
     shipping_options: [
       {
         shipping_rate_data: {
@@ -73,12 +86,13 @@ console.log (line_items)
           },
         },
       },
-    ]
+    ],
    
   });
 
   res.send({ clientSecret: session.client_secret });
 };
+
 
 const sessionStatus = async (req, res) => {
   const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
